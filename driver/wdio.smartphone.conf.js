@@ -1,30 +1,21 @@
-// Mobile configs:
-var defaults = require("./wdio.conf.js").config;
-let config = require('./config.json');
+// Let's load the default configs:
+let defaults = require("./wdio.conf.js").config;
+let configure = require('./config.json');
 var _ = require("lodash");
 
 var overrides = {
     services: ['sauce'],
-    user: config.sauceUserName,
-    key: config.sauceKEY,
+    user: configure.sauceUserName,
+    key: configure.sauceKEY,
     sauceConnect: true,
     capabilities: [{
-        appiumVersion: '1.8.0',
-        deviceName: 'Samsung Galaxy S9 FHD GoogleAPI Emulator',
-        deviceOrientation: 'portrait',
-        browserName: 'Chrome',
-        platformVersion: '7.1',
-        platformName: 'Android'
+        browserName: configure.browserName,
+        platform: configure.platform,
+        version: configure.version,
+        screenResolution: '1024x768'
 
-    }, {
-        appiumVersion: '1.8.0',
-        deviceName: 'iPhone X Simulator',
-        deviceOrientation: 'portrait',
-        browserName: 'Safari',
-        platformVersion: '11.2',
-        platformName: 'iOS'
     }]
 };
 
-// Send the merged config to wdio
+// Send the merged defaults to wdio
 exports.config = _.defaultsDeep(overrides, defaults);
